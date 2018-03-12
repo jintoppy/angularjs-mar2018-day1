@@ -1,25 +1,29 @@
 var myapp = angular.module('myapp',[])
 
-myapp.controller('MyCtrl', ['$scope', 'AppService', 
-    function($scope, AppService){
-        $scope.greeting = 'Hi SG';
-
-        $scope.onQueryChange = function(){
-            $scope.users = AppService.getFilteredUsers($scope.query)
+myapp.controller('MyCtrl', ['AppService', 
+    function(AppService){
+        var self = this;
+        self.greeting = 'Hi SG';
+        self.onQueryChange = function(){
+            var filterPromise =  AppService.getFilteredUsers(self.query)
+            filterPromise.then(function(res){
+                self.users = res;
+            });
         };
 
-        $scope.sayHello = function(){
-            $scope.greeting = 'MODIFIED VALUE';
+        self.sayHello = function(){
+            self.greeting = 'MODIFIED VALUE';
         };
 
         var userPromise = AppService.getUsers();
+        
         userPromise.then(function(result){
-            $scope.users = result.data;
+            console.log(result);
+            self.users = result.data;
         });
 
-        $scope.onViewBtnClick = function(userDetails){
-            $scope.selectedUser = userDetails;
+        self.onViewBtnClick = function(userDetails){
+            self.selectedUser = userDetails;
         };
 
 }]);
-

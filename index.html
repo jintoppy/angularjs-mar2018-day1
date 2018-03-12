@@ -7,12 +7,17 @@
     <title>Document</title>
 </head>
 <body>
-    <div ng-controller="MyCtrl">
-        
+    <div ng-controller="MyCtrl as ctrl">
+        <p>Normal:{{ctrl.greeting}}</p>
+        <p>uppercase: {{ctrl.greeting | uppercase}}</p>
+        <p>lowercase: {{ctrl.greeting | lowercase}}</p>
+        {{100 | currency:'INR'}}
+
+
         <input 
             type="text" 
-            ng-model="query" 
-            ng-change="onQueryChange()"
+            ng-model="ctrl.query" 
+            ng-change="ctrl.onQueryChange()"
         >
 
         <table>
@@ -24,11 +29,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="user in users">
-                    <td>{{user.name}}</td>
+                <tr ng-repeat="user in ctrl.users">
+                    <td>{{user.name | customName:user}}</td>
                     <td>{{user.age}}</td>
                     <td>
-                        <button ng-click="onViewBtnClick(user)">
+                        <button ng-click="ctrl.onViewBtnClick(user)">
                             View
                         </button>
                     </td>
@@ -36,15 +41,16 @@
             </tbody>
         </table>
 
-        <div ng-show="selectedUser">
+        <div ng-show="ctrl.selectedUser">
             <h2>Selected User</h2>
-            <p>Name: {{selectedUser.name}}</p>
-            <p>Age: {{selectedUser.age}}</p>
+            <p>Name: {{ctrl.selectedUser.name}}</p>
+            <p>Age: {{ctrl.selectedUser.age}}</p>
         </div>
 
     </div>
     <script src="angular.js"></script>
     <script src="app.js"></script>
     <script src="app.service.js"></script>
+    <script src="app.filter.js"></script>
 </body>
 </html>

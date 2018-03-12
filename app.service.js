@@ -6,11 +6,16 @@ angular.module('myapp')
             };
 
             this.getFilteredUsers = function(query){
-                return users.filter(function(item){
-                    return item.name
-                                 .toLowerCase()
-                                 .includes(query.toLowerCase());
+                var userPromise = this.getUsers();
+                return userPromise.then(function(result){
+                    var users = result.data;
+                    return users.filter(function(item){
+                        return item.name
+                                    .toLowerCase()
+                                    .includes(query.toLowerCase());
+                    });
                 });
+                
             };
 
     }]);
