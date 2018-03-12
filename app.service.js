@@ -1,18 +1,16 @@
 angular.module('myapp')
-    .service('AppService', [function(){
-            var users = [
-                {
-                    name: 'Ajith',
-                    age: 20
-                },
-                {
-                    name: 'Renju',
-                    age: 21
-                }
-            ];
-
+    .service('AppService', ['$http', 
+    function($http){
             this.getUsers = function(){
-                return users;
+                return $http.get('/db/users.json');
+            };
+
+            this.getFilteredUsers = function(query){
+                return users.filter(function(item){
+                    return item.name
+                                 .toLowerCase()
+                                 .includes(query.toLowerCase());
+                });
             };
 
     }]);
