@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myapp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div ng-controller="MyCtrl">
+        
+        {{greeting}}
+        {{1+1}}
+        <input type="text" ng-model="greeting">
+        <button ng-click="sayHello()">
+            Click me
+        </button>
+
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in users">
+                    <td>{{user.name}}</td>
+                    <td>{{user.age}}</td>
+                    <td>
+                        <button ng-click="onViewBtnClick(user)">
+                            View
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div ng-show="selectedUser">
+            <h2>Selected User</h2>
+            <p>Name: {{selectedUser.name}}</p>
+            <p>Age: {{selectedUser.age}}</p>
+        </div>
+
+    </div>
+    <script src="angular.js"></script>
+    <script src="app.js"></script>
+    <script src="app.service.js"></script>
+</body>
+</html>
